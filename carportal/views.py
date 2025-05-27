@@ -3,16 +3,18 @@ from .forms import FeedbackForm, RegistrationForm, LoginForm
 from carportal.models import Feedback, Like, User
 from django.contrib.auth import login, authenticate, logout
 from django.http import JsonResponse
+from django.http import HttpResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.core.management import call_command
 import json
 import requests
 
+def migrate_view(request):
+    call_command('migrate')
+    return HttpResponse("Миграции применены")
+
 def registration(request):
-    if not hasattr(request, '_migrations_applied'):
-        call_command('migrate', verbosity=0)
-        request._migrations_applied = True
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
