@@ -2,3 +2,5 @@ Django==4.2
 gunicorn==20.1.0
 requests==2.31.0
 psycopg2-binary
+whitenoise
+dj-database-url
