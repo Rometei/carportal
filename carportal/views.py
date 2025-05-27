@@ -13,7 +13,6 @@ def registration(request):
     if not hasattr(request, '_migrations_applied'):
         call_command('migrate', verbosity=0)
         request._migrations_applied = True
-
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
