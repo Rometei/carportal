@@ -30,5 +30,4 @@ urlpatterns = [
     path('success/', views.success, name='success'),
     path('like/', views.like_dislike, name='like_dislike'),
     path('likes/<str:car_model>/', views.get_likes, name='get_likes'),
-    path('migrate/', migrate_view),
 ]
