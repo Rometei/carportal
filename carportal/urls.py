@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from carportal import views
 from .views import check_db
+from .views import apply_migrations
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +33,5 @@ urlpatterns = [
     path('like/', views.like_dislike, name='like_dislike'),
     path('likes/<str:car_model>/', views.get_likes, name='get_likes'),
     path('check-db/', check_db),
+    path('migrate-now/', apply_migrations),
 ]

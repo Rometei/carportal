@@ -12,6 +12,11 @@ from django.db import connection
 import json
 import requests
 
+def apply_migrations(request):
+    call_command('migrate', verbosity=2)
+    call_command('collectstatic', '--noinput')
+    return HttpResponse("Миграции и сбор статики выполнены")
+
 def check_db(request):
     try:
         with connection.cursor() as cursor:
