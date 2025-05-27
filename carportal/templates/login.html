@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'models' %}">Модели</a></li>
+                <li><a href="{% url 'contact' %}">Контакты</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'feedback' %}">Обратная связь</a></li>
+                <li><a href="{% url 'user_logout' %}">Выйти</a></li>
+                {% else %}
+                <li><a href="{% url 'registration' %}">Регистрация</a></li>
+                <li><a href="{% url 'user_login' %}">Войти</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <h1>Вход</h1>
+            <form method="post" action="{% url 'user_login' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Логин:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Войти</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Автомобильный портал</p>
+    </footer>
+</body>
+</html>

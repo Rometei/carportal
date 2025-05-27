@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Популярные модели</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .rating-container {
+            margin: 10px 0;
+        }
+        .like-btn, .dislike-btn {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background: #f0f0f0;
+        }
+        .like-btn.active {
+            background: #4CAF50;
+            color: white;
+        }
+        .dislike-btn.active {
+            background: #f44336;
+            color: white;
+        }
+        .total-rating {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'models' %}">Модели</a></li>
+                <li><a href="{% url 'contact' %}">Контакты</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'feedback' %}">Обратная связь</a></li>
+                <li><a href="{% url 'user_logout' %}">Выйти</a></li>
+                {% else %}
+                <li><a href="{% url 'registration' %}">Регистрация</a></li>
+                <li><a href="{% url 'user_login' %}">Войти</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Популярные модели автомобилей</h1>
+        <p>На этой странице мы расскажем о самых популярных моделях автомобилей, которые завоевали любовь миллионов людей по всему миру. Эти автомобили отличаются надежностью, стильным дизайном и передовыми технологиями.</p>
+
+        <h2>Toyota Camry</h2>
+        <p>Toyota Camry — это один из самых популярных седанов в мире. Он сочетает в себе комфорт, надежность и экономичность. Camry оснащен современными системами безопасности и мультимедиа, что делает его отличным выбором для семьи.</p>
+        <img src="{% static 'images/camry.jpg' %}" alt="Toyota Camry">
+        <div class="rating-container" data-model="Toyota Camry">
+            <button class="like-btn" data-value="1">👍 <span class="like-count">0</span></button>
+            <button class="dislike-btn" data-value="-1">👎 <span class="dislike-count">0</span></button>
+            <span class="total-rating">Рейтинг: 0</span>
+        </div>
+
+        <h2>Honda Civic</h2>
+        <p>Honda Civic — это компактный автомобиль, который заслужил репутацию надежного и экономичного транспортного средства. Civic предлагает отличную управляемость и стильный дизайн, что делает его популярным среди молодежи.</p>
+        <img src="{% static 'images/civic.jpg' %}" alt="Honda Civic">
+        <div class="rating-container" data-model="Honda Civic">
+            <button class="like-btn" data-value="1">👍 <span class="like-count">0</span></button>
+            <button class="dislike-btn" data-value="-1">👎 <span class="dislike-count">0</span></button>
+            <span class="total-rating">Рейтинг: 0</span>
+        </div>
+
+        <h2>Ford Mustang</h2>
+        <p>Ford Mustang — это легендарный спортивный автомобиль, который стал символом американской автомобильной промышленности. Mustang предлагает мощный двигатель, агрессивный дизайн и непревзойденную динамику.</p>
+        <img src="{% static 'images/mustang.jpg' %}" alt="Ford Mustang">
+        <div class="rating-container" data-model="Ford Mustang">
+            <button class="like-btn" data-value="1">👍 <span class="like-count">0</span></button>
+            <button class="dislike-btn" data-value="-1">👎 <span class="dislike-count">0</span></button>
+            <span class="total-rating">Рейтинг: 0</span>
+        </div>
+
+        <h2>BMW 3 Series</h2>
+        <p>BMW 3 Series — это премиальный седан, который сочетает в себе роскошь, комфорт и спортивные характеристики. Он оснащен передовыми технологиями и предлагает водителю непревзойденный опыт управления.</p>
+        <img src="{% static 'images/bmw3.jpg' %}" alt="BMW 3 Series">
+        <div class="rating-container" data-model="BMW 3 Series">
+            <button class="like-btn" data-value="1">👍 <span class="like-count">0</span></button>
+            <button class="dislike-btn" data-value="-1">👎 <span class="dislike-count">0</span></button>
+            <span class="total-rating">Рейтинг: 0</span>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Автомобильный портал</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Функция для обновления рейтинга
+        function updateRating(model) {
+            fetch(`/likes/${model}/`)
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.querySelector(`.rating-container[data-model="${model}"]`);
+                    container.querySelector('.like-count').textContent = data.likes;
+                    container.querySelector('.dislike-count').textContent = data.dislikes;
+                    container.querySelector('.total-rating').textContent = `Рейтинг: ${data.total}`;
+
+                    // Обновляем активные кнопки
+                    container.querySelector('.like-btn').classList.remove('active');
+                    container.querySelector('.dislike-btn').classList.remove('active');
+
+                    if (data.user_vote === 1) {
+                        container.querySelector('.like-btn').classList.add('active');
+                    } else if (data.user_vote === -1) {
+                        container.querySelector('.dislike-btn').classList.add('active');
+                    }
+                });
+        }
+
+        // Обработчики для кнопок лайков/дизлайков
+        document.querySelectorAll('.like-btn, .dislike-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                {% if not user.is_authenticated %}
+                    alert('Пожалуйста, войдите, чтобы оценивать модели');
+                    return;
+                {% endif %}
+
+                const container = this.closest('.rating-container');
+                const model = container.dataset.model;
+                const value = parseInt(this.dataset.value);
+
+                fetch('/like/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify({
+                        car_model: model,
+                        value: value
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'ok') {
+                        updateRating(model);
+                    } else {
+                        console.error('Ошибка:', data.message);
+                    }
+                });
+            });
+        });
+
+        // Инициализация рейтингов при загрузке страницы
+        document.querySelectorAll('.rating-container').forEach(container => {
+            updateRating(container.dataset.model);
+        });
+
+        // Опционально: автоматическое обновление каждые 10 секунд
+        setInterval(function() {
+            document.querySelectorAll('.rating-container').forEach(container => {
+                updateRating(container.dataset.model);
+            });
+        }, 5000); // 5000 мс = 5 секунд
+    });
+    </script>
+</body>
+</html>

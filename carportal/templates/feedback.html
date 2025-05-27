@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обратная связь</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'models' %}">Модели</a></li>
+                <li><a href="{% url 'contact' %}">Контакты</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'feedback' %}">Обратная связь</a></li>
+                <li><a href="{% url 'user_logout' %}">Выйти</a></li>
+                {% else %}
+                <li><a href="{% url 'registration' %}">Регистрация</a></li>
+                <li><a href="{% url 'user_login' %}">Войти</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <h1>Обратная связь</h1>
+            <form id="feedbackForm" method="post" onsubmit="return validateFeedbackForm()">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Имя:</label>
+                    <input type="text" id="name" name="name" required pattern="[A-ZА-Я][a-zа-я]*">
+                    <span class="error-message" id="nameError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Текст сообщения:</label>
+                    <textarea id="message" name="message" required minlength="10" class="large-input"></textarea>
+                    <span class="error-message" id="messageError"></span>
+                </div>
+
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Автомобильный портал</p>
+    </footer>
+
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

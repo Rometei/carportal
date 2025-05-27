@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'models' %}">Модели</a></li>
+                <li><a href="{% url 'contact' %}">Контакты</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'feedback' %}">Обратная связь</a></li>
+                <li><a href="{% url 'user_logout' %}">Выйти</a></li>
+                {% else %}
+                <li><a href="{% url 'registration' %}">Регистрация</a></li>
+                <li><a href="{% url 'user_login' %}">Войти</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Контакты</h1>
+        <p>Если у вас есть вопросы или предложения, вы можете связаться с нами. Мы всегда рады помочь вам!</p>
+
+        <h2>Наши контактные данные</h2>
+        <ul>
+            <li><strong>Телефон:</strong> +7 (123) 456-78-90</li>
+            <li><strong>Email:</strong> info@carportal.ru</li>
+            <li><strong>Адрес:</strong> г. Москва, ул. Автомобильная, д. 1</li>
+        </ul>
+
+        <h2>Режим работы</h2>
+        <p>Наш офис работает с понедельника по пятницу с 9:00 до 18:00. Суббота и воскресенье — выходные дни.</p>
+
+        <!--<h2>Обратная связь</h2>
+        <p>Если вы хотите оставить отзыв или задать вопрос, заполните форму ниже, и мы свяжемся с вами в ближайшее время.</p>
+        <form>
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="message">Сообщение:</label><br>
+            <textarea id="message" name="message" rows="5" cols="40" required></textarea><br><br>
+            <button type="submit">Отправить</button>
+        </form>-->
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Автомобильный портал</p>
+    </footer>
+</body>
+</html>

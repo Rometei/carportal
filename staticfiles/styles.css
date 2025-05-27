@@ -1,0 +1,265 @@
+/* Основные стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0a0a0a; /* Темный фон для современного вида */
+    color: #ffffff; /* Белый текст */
+    line-height: 1.6;
+}
+
+header {
+    background-color: rgba(10, 10, 10, 0.9); /* Полупрозрачный темный фон */
+    color: #ffffff;
+    padding: 20px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px); /* Размытие фона */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Расстояние между пунктами меню */
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ff6b6b; /* Акцентный цвет при наведении */
+    transform: translateY(-3px); /* Анимация при наведении */
+}
+
+main {
+    padding: 120px 20px 80px; /* Учитываем фиксированный хедер и футер */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 4em;
+    color: #ffffff;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase; /* Заглавные буквы */
+    letter-spacing: 4px; /* Расстояние между буквами */
+}
+
+h2 {
+    font-size: 2.5em;
+    color: #ffffff;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+p {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: #cccccc; /* Светло-серый текст */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 40px 0;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.02); /* Легкое увеличение при наведении */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+ul li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #cccccc;
+}
+
+footer {
+    background-color: rgba(10, 10, 10, 0.9); /* Полупрозрачный темный фон */
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    backdrop-filter: blur(10px); /* Размытие фона */
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для формы */
+.form-container {
+    background-color: rgba(255, 255, 255, 0.1); /* Полупрозрачный белый фон */
+    padding: 120px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    backdrop-filter: blur(10px); /* Размытие фона */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #ff6b6b;
+    box-shadow: 0 0 8px rgba(255, 107, 107, 0.3);
+}
+
+input:valid, textarea:valid {
+    border-color: #4CAF50;
+}
+
+input:invalid, textarea:invalid {
+    border-color: #f44336;
+}
+
+.error-message {
+    color: #f44336;
+    font-size: 12px;
+    display: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff6b6b;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff4c4c;
+    transform: translateY(-2px);
+}
+
+/* Стили для текстового поля */
+textarea {
+    width: 100%;
+    height: 200px;
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    resize: none;
+    box-sizing: border-box;
+    overflow: auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+}
+/* Стили для системы лайков */
+.rating-container {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.like-btn, .dislike-btn {
+    background: none;
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+.like-btn:hover {
+    background: rgba(0, 128, 0, 0.2);
+    border-color: green;
+}
+
+.dislike-btn:hover {
+    background: rgba(128, 0, 0, 0.2);
+    border-color: red;
+}
+
+.like-btn.active {
+    background: rgba(0, 128, 0, 0.5);
+    border-color: green;
+}
+
+.dislike-btn.active {
+    background: rgba(128, 0, 0, 0.5);
+    border-color: red;
+}
+
+.total-rating {
+    font-weight: bold;
+    margin-left: 10px;
+}
