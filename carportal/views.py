@@ -5,10 +5,15 @@ from django.contrib.auth import login, authenticate, logout
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.core.management import call_command
 import json
 import requests
 
 def registration(request):
+    if not hasattr(request, '_migrations_applied'):
+        call_command('migrate', verbosity=0)
+        request._migrations_applied = True
+
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
