@@ -19,6 +19,7 @@ from django.urls import path
 from carportal import views
 from .views import check_db
 from .views import apply_migrations
+from .views import create_superuser
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,4 +35,5 @@ urlpatterns = [
     path('likes/<str:car_model>/', views.get_likes, name='get_likes'),
     path('check-db/', check_db),
     path('migrate-now/', apply_migrations),
+    path('create-superuser/', create_superuser),
 ]

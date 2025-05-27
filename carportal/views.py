@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import FeedbackForm, RegistrationForm, LoginForm
 from carportal.models import Feedback, Like, User
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.http import HttpResponse
 from django.views.decorators.http import require_POST
@@ -11,6 +12,12 @@ from django.http import HttpResponse
 from django.db import connection
 import json
 import requests
+
+def create_superuser(request):
+    User = get_user_model()
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@example.com', '5555')
+    return HttpResponse("Суперпользователь создан")
 
 def apply_migrations(request):
     call_command('migrate', verbosity=2)
