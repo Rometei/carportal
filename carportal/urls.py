@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from carportal import views
+from .views import check_db
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +31,5 @@ urlpatterns = [
     path('success/', views.success, name='success'),
     path('like/', views.like_dislike, name='like_dislike'),
     path('likes/<str:car_model>/', views.get_likes, name='get_likes'),
+    path('check-db/', check_db),
 ]

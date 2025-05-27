@@ -7,8 +7,18 @@ from django.http import HttpResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.core.management import call_command
+from django.http import HttpResponse
+from django.db import connection
 import json
 import requests
+
+def check_db(request):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT 1")
+            return HttpResponse("PostgreSQL подключена успешно!")
+    except Exception as e:
+        return HttpResponse(f"Ошибка подключения: {str(e)}", status=500)
 
 def migrate_view(request):
     call_command('migrate')
